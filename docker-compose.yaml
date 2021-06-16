@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+  nginx:
+    build: ./.build/nginx
+    volumes:
+      - ./:/app
+      - .build/nginx/nginx:/etc/nginx
+    depends_on:
+      - php
+  php:
+    build:
+      context: ./.build/php
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    links:
+      - postgres
+    volumes:
+      - ./:/app
+      - ~/.ssh:/var/www/.ssh
+  postgres:
+    image: postgres:12
+    environment:
+      TZ: Europe/Moscow
+      POSTGRES_PASSWORD: avito-retailcrm
+      POSTGRES_USER: avito-retailcrm
+      POSTGRES_DB: avito-retailcrm

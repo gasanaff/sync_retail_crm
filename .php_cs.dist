@@ -1,0 +1,12 @@
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__ . '/src');
+
+return Retailcrm\PhpCsFixer\Defaults::rules([
+        'no_superfluous_phpdoc_tags' => false
+    ])
+    ->setFinder($finder)
+    ->setCacheFile(__DIR__ . '/var/.php_cs.cache');
